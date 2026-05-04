@@ -64,7 +64,7 @@ function App() {
       }
     };
 
-    const id = setTimeout(fetchJokes, 700);
+    const id = setTimeout(fetchJokes, 1000);
     return () => clearTimeout(id);
   }, [category]);
 

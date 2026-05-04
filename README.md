@@ -1,16 +1,35 @@
-# React + Vite
+# Joke Box 😄
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal React app that fetches and displays random jokes by category using the [FreeAPI](https://freeapi.app) public jokes endpoint.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Search jokes by category (e.g. `science`, `food`)
+- Debounced search — fetches 1000 ms after you stop typing
+- Displays category tags on each joke card
+- Loading, error, and empty-state handling
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** with Vite
+- **FreeAPI** — `https://api.freeapi.app/api/v1/public/randomjokes`
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```random-jokes-viewer/README.md#L1-1
+# install
+pnpm install
+
+# run dev server
+pnpm dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## API
+
+Jokes are fetched from the FreeAPI public endpoint. No API key required.
+
+```random-jokes-viewer/README.md#L1-1
+GET https://api.freeapi.app/api/v1/public/randomjokes?query=<category>
+```
