@@ -1,1 +1,325 @@
-  
+/* ── Reset & base ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0c0c10;
+    --surface: #141418;
+    --card: #1b1b22;
+    --card-hover: #21212a;
+    --border: #27272f;
+    --border-focus: #f59e0b;
+    --accent: #f59e0b;
+    --accent-dim: rgba(245, 158, 11, 0.12);
+    --accent-ring: rgba(245, 158, 11, 0.18);
+    --text: #eaeaf2;
+    --text-muted: #7a7a9a;
+    --text-dim: #45455a;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --radius-pill: 999px;
+    --transition: 0.2s ease;
+}
+
+body {
+    font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.app {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 20px 96px;
+}
+
+/* ── Header ── */
+.header {
+    text-align: center;
+    margin-bottom: 44px;
+}
+
+.header-icon {
+    font-size: 52px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 18px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 14.5px;
+}
+
+/* ── Search bar ── */
+.search-wrapper {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.search-icon-wrap {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 13px 44px 13px 44px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14.5px;
+    outline: none;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.search-input::placeholder {
+    color: var(--text-dim);
+}
+
+.search-input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+}
+
+.clear-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    border-radius: 4px;
+    transition: color var(--transition);
+}
+
+.clear-btn:hover {
+    color: var(--text-muted);
+}
+
+/* ── State boxes (loading / error / empty) ── */
+.state-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 14px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.state-emoji {
+    font-size: 38px;
+    line-height: 1;
+}
+
+.state-label {
+    font-size: 14.5px;
+    color: var(--text-muted);
+}
+
+/* Spinner */
+.spinner {
+    width: 34px;
+    height: 34px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Retry button */
+.retry-btn {
+    margin-top: 4px;
+    padding: 8px 20px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: var(--radius-pill);
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        transform var(--transition);
+}
+
+.retry-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    transform: translateY(-1px);
+}
+
+/* ── Results meta ── */
+.results-meta {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+    margin-bottom: 14px;
+}
+
+/* ── Jokes masonry ── */
+.jokes-grid {
+    columns: 2;
+    column-gap: 16px;
+}
+
+/* ── Joke card ── */
+.joke-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px 20px;
+    position: relative;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: 16px;
+    animation: fadeUp 0.4s ease both;
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+/* Subtle top-left glow on hover */
+.joke-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 0% 0%,
+        var(--accent-dim) 0%,
+        transparent 65%
+    );
+    opacity: 0;
+    transition: opacity var(--transition);
+    pointer-events: none;
+}
+
+.joke-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(245, 158, 11, 0.28);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.joke-card:hover::after {
+    opacity: 1;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Large decorative quote mark */
+.quote-mark {
+    display: block;
+    font-size: 44px;
+    line-height: 1;
+    color: var(--accent);
+    font-family: Georgia, "Times New Roman", serif;
+    opacity: 0.5;
+    margin-bottom: 6px;
+    user-select: none;
+}
+
+.joke-content {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text);
+}
+
+/* ── Category tags ── */
+.joke-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.category-tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+}
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+    .jokes-grid {
+        columns: 1;
+    }
+}
+
+@media (min-width: 640px) {
+    .title {
+        font-size: 40px;
+    }
+}
